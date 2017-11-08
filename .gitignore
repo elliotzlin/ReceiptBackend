@@ -1,2 +1,5 @@
 # Python environment
 venv_run
+
+# Temporary files
+__pycache__
