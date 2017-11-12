@@ -3,6 +3,9 @@ from flask import json
 from flask import jsonify
 from flask import request
 from app import app
+from intuit import BASE_URL
+
+import requests
 
 @app.route('/')
 def index():
@@ -14,4 +17,8 @@ def process_receipt():
     if not data:
         return jsonify(**{'postData': 'No data'})
     receipt_raw = data['content']
-    return jsonify(**{ 'postData': receipt_raw })
+
+    # do some processing here
+
+    # Now create a new purchase object to Quickbooks
+    r = requests.post(
