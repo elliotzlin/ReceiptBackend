@@ -1,7 +1,7 @@
 REQUIREMENTS?=requirements.txt
 
 FLASK_APP='app/__init__.py'
-FLASK_DEBUG=1
+FLASK_DEBUG?=1
 
 DEV_PORT?=5000
 
