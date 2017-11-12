@@ -19,6 +19,9 @@ def index():
 
 @app.route('/v1/application/processReceipt', methods=['GET', 'POST'])
 def process_receipt():
+    access_token = session.get('access_token')
+    if not access_token:
+        return redirect(url_for('auth'))
     data = request.get_json()
     #if not data:
     #    return jsonify(**{'postData': 'No data'})
@@ -26,10 +29,8 @@ def process_receipt():
     # do some processing here
     #body = create_request_body(receipt_raw)
     # Now create a new purchase object to Quickbooks
-    if 'access_token' not in session:
-        redirect('/auth')
     headers = {'Content-Type': 'application/json'}
-    headers['Authorization'] = 'Bearer ' + session['access_token']
+    headers['Authorization'] = 'Bearer ' + access_token
     #r = qbo.post(PURCHASE_OP, data={}, headers=headers)
     payload = json.dumps(receipt_reader())
     r = requests.post(BASE_URL + PURCHASE_OP, headers=headers, data=payload)
@@ -51,7 +52,6 @@ def oauth_authorized(resp):
     if resp is None:
         return jsonify(**{'authStatus': 'Fail'})
     # Setting the session using flask session just for prototyping
-    keys = resp.get_json()
     session['is_authorized'] = True
-    session['access_token'] = keys.get('access_token')
+    session['access_token'] = resp.get('access_token')
     return jsonify(**{'authStatus': 'Success'})
