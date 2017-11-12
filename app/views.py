@@ -44,7 +44,7 @@ def process_receipt():
     })
 
 @app.route('/auth')
-@cross_origin(origin='*')
+@cross_origin(origin='null')
 def auth():
     return qbo.authorize(callback=url_for(REDIRECT_URI_DEV))
 
