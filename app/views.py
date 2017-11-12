@@ -5,6 +5,7 @@ from flask import redirect
 from flask import request
 from flask import session
 from flask import url_for
+from flask_cors import cross_origin
 from app import app
 from app import qbo
 from .intuit import BASE_URL, PURCHASE_OP, REDIRECT_URI_DEV
@@ -19,6 +20,7 @@ def index():
     return jsonify(**{ 'reply': 'Hello, World!'})
 
 @app.route('/v1/application/processReceipt', methods=['GET', 'POST'])
+@cross_origin(origins='*')
 def process_receipt():
     access_token = session.get('access_token')
     if not access_token:

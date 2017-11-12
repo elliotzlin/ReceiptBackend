@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config.from_object('app.config.DevConfig')
 
 # Allow CORS
-CORS(app)
+cors = CORS(app)
 
 # OAuth for interfacing with QBO
 oauth = OAuth()
