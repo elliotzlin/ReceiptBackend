@@ -1,9 +1,9 @@
 from flask import abort
 from flask import json
 from flask import jsonify
-from flask import request
 from app import app
-from intuit import BASE_URL
+from app import qbo
+from .intuit import PURCHASE_OP
 
 import requests
 
@@ -17,8 +17,8 @@ def process_receipt():
     if not data:
         return jsonify(**{'postData': 'No data'})
     receipt_raw = data['content']
-
     # do some processing here
-
+    body = create_request_body(receipt_raw)
     # Now create a new purchase object to Quickbooks
-    r = requests.post(
+    headers = {'Content-Type': 'application/json'}
+    r = qbo.post(PURCHASE_OP, data={}, headers=headers)
