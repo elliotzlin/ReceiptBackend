@@ -13,19 +13,17 @@ def receipt_reader():
     
     # iterate through the data (cosco_recpt)
     for line in cosco_recpt:
-        per_item = {"Amount":"","DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"name":"","value":"13"}}}
+        per_item = {"Description":"","Amount":"","DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"name":"Meals and Entertainment","value":"13"}}}
         
         # mark the beginning of item list 
         if bool(re.search("member\s+\S\d*",line, re.IGNORECASE)):
-            print("should be here once!")
             read_items_tag = 1
             continue
         # read items/price pair and put in list for json object
         elif bool(re.search("^\d+\s+(.*\D+)\s+(\d*\.\d{1,2}|\d+)",line, re.IGNORECASE)) and read_items_tag:
             m = re.search("^\d+\s+(.*\D+)\s+(\d*\.\d{1,2}|\d+)",line)
-            #item_price.append("{}-{}".format(m.group(1), m.group(2)))
             per_item["Amount"] = m.group(2)
-            per_item["AccountBasedExpenseLineDetail"]["AccountRef"]["names"] = m.group(1)
+            per_item["Description"] = m.group(1)
             item_price.append(per_item)
         # mark end of item list
         elif bool(re.search("SUBTOTAL\s*\d+\.\d+",line, re.IGNORECASE)):
@@ -33,7 +31,6 @@ def receipt_reader():
             continue
         # get total price
         elif bool(re.search("AMOUNT\s+:\s\$*(\d+\.\d+)",line, re.IGNORECASE)):
-            print("found amount...")
             total = re.search("AMOUNT\s+:\s\$*(\d+\.\d+)",line).group(1)
         elif bool(re.search("X{12}\d{4}", line, re.IGNORECASE)):
             payment = "CreditCard"
@@ -41,5 +38,5 @@ def receipt_reader():
     json_output["Line"] = item_price
     
     #for debug purpose
-    # print(json_output) 
+    #print(json_output) 
     return json_output
