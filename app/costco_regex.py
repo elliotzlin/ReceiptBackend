@@ -28,7 +28,7 @@ def receipt_reader(receipt):
             per_item["Description"] = m.group(1)
             item_price.append(per_item)
         # mark end of item list
-        elif bool(re.search("SUBTOTAL\s*\d+\.\d+",line, re.IGNORECASE)):
+        elif bool(re.search("SUBTOTAL\s*\d+\.\d+|TOTAL\s*\d+\.\d+",line, re.IGNORECASE)):
             read_items_tag = 0
             continue
         # get total price
