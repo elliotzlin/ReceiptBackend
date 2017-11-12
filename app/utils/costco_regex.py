@@ -42,4 +42,4 @@ def receipt_reader():
     
     #for debug purpose
     # print(json_output) 
-    return 0
+    return json_output
