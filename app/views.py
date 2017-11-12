@@ -13,6 +13,7 @@ from .costco_regex import receipt_reader
 import json
 import requests
 
+
 @app.route('/')
 def index():
     return jsonify(**{ 'reply': 'Hello, World!'})
@@ -31,11 +32,14 @@ def process_receipt():
     # Now create a new purchase object to Quickbooks
     headers = {'Content-Type': 'application/json'}
     headers['Authorization'] = 'Bearer ' + access_token
+    headers['Accept'] = 'application/json'
     #r = qbo.post(PURCHASE_OP, data={}, headers=headers)
     payload = json.dumps(receipt_reader())
     r = requests.post(BASE_URL + PURCHASE_OP, headers=headers, data=payload)
-    print(r.json())
-    return r.json()
+    return jsonify(**{
+        'processStatus': 'Success',
+        'data': r.text,
+    })
 
 @app.route('/auth')
 def auth():
