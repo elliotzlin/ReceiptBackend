@@ -7,7 +7,7 @@ PURCHASE_OP='/v3/company/'+COMPANY_ID+'/purchase'
 CLIENT_ID='Q09pGXudM4vOLRL2wfTe5NLbEMkZWLlWYicaGAJoBchIkgAEni'
 CLIENT_SECRET='DgCyVEAXFeaQh761YGNi0Iv9HOnRKm17LtPABn2R'
 
-REDIRECT_URI_DEV='/oauth_authorized'
+REDIRECT_URI_DEV='oauth_authorized'
 REDIRECT_URI_PROD='http://inventory-ba-backend.herokuapp.com/oauth_authorized'
 AUTH_BASE_URL='https://appcenter.intuit.com/connect/oauth2'
 ACCESS_BASE_URL='https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer'
