@@ -6,7 +6,7 @@ Flask-Cors==3.0.3
 -e git://github.com/elliotzlin/flask-oauth.git@8a5776e7b979def24c5cc2d8b659025cf892e3c4#egg=Flask_OAuth
 Flask-SQLAlchemy==2.3.2
 gunicorn==19.7.1
-httplib2==0.10.3
+httplib2==0.18.0
 idna==2.6
 itsdangerous==0.24
 Jinja2==2.9.6
